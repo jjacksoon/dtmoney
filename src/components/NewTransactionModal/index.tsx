@@ -19,14 +19,22 @@ export function NewTransactionModal({isOpen, onRequestClose}: NewTransactionModa
   const[category, setCategory] = useState('');
   const [type, setType] = useState('deposit');
 
-  function handleCreateNewTransaction(event: FormEvent){
+  async function handleCreateNewTransaction(event: FormEvent){
     event.preventDefault();
-    createTransaction({
+    //Caso a criação da transação ocorra sem problemas
+    await createTransaction({
       title,
       amount,
       category,
       type
-    })
+    });
+    //Setando os campos do formulário para os valores padrão
+    setTitle('');
+    setAmount(0);
+    setCategory('');
+    setType('deposit');
+    //Fechando o modal com dados cadastrados na API
+    onRequestClose();
   }
 
   return(
